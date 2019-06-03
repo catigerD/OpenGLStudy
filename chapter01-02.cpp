@@ -8,19 +8,11 @@
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include <chapter01-02.h>
+#include <chapter01.h>
 
 #include <iostream>
 
 using namespace std;
-
-const unsigned int SCR_WIDTH = 800;
-const unsigned int SCR_HEIGHT = 600;
-
-//C++ 函数指针声明不需要 typedef?
-void frameBufferSizeCallback(GLFWwindow *, int, int);
-
-void processInput(GLFWwindow *);
 
 const char *vertexShaderSource = "#version 330 core\n"
                                  "layout(location = 0) in vec3 aPos;\n"
@@ -53,7 +45,7 @@ int chapter01_02() {
         return -1;
     }
     glfwMakeContextCurrent(window);
-    glfwSetFramebufferSizeCallback(window, frameBufferSizeCallback);
+    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
     //glad : load all OpenGL function pointers
     if (!gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress))) {
@@ -175,14 +167,5 @@ int chapter01_02() {
     return 0;
 }
 
-void frameBufferSizeCallback(GLFWwindow *window, int widht, int height) {
-    glViewport(0, 0, widht, height);
-}
-
-void processInput(GLFWwindow *window) {
-    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
-        glfwSetWindowShouldClose(window, true);
-    }
-}
 
 

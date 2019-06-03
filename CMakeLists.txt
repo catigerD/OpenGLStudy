@@ -8,7 +8,7 @@ include_directories(.)
 link_directories(lib)
 aux_source_directory(. MAIN_SRC)
 
-add_executable(OpenGLStudy ${MAIN_SRC})
+add_executable(OpenGLStudy ${MAIN_SRC} include/chapter01.h chapter01-03.cpp chapter01.cpp include/Shader.h)
 
 target_link_libraries(
         OpenGLStudy
