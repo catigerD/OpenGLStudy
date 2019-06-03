@@ -100,19 +100,34 @@ int chapter01_02() {
     glDeleteShader(fragmentShader);
 
     //set up vertex data (and buffers) and configure vertex attributes
+//    float vertices[] = {
+//            -0.5f, -0.5f, 0.0f,//left
+//            0.5f, -0.5f, 0.0f,//right
+//            0.0f, 0.5f, 0.0f,//top
+//    };
     float vertices[] = {
-            -0.5f, -0.5f, 0.0f,//left
-            0.5f, -0.5f, 0.0f,//right
-            0.0f, 0.5f, 0.0f,//top
+            0.5f, 0.5f, 0.0f,//top right
+            0.5f, -0.5f, 0.0f,//bottom right
+            -0.5f, -0.5f, 0.0f,//bottom left
+            -0.5f, 0.5f, 0.0f//top left
     };
-    unsigned int VBO, VAO;
+    unsigned int indices[] = {
+            0, 1, 3,//first
+            1, 2, 3//second
+    };
+
+    unsigned int VBO, VAO, EBO;
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
+    glGenBuffers(1, &EBO);
     //bind the vertex array object first,then bind and set vertex buffers, and then configure vertex attributes
     glBindVertexArray(VAO);
 
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *) 0);
     glEnableVertexAttribArray(0);
@@ -120,6 +135,8 @@ int chapter01_02() {
     //note that this is allowed,the call to glVertexAttribPointer registered VBO as the vertex attribute's
     //bound vertex buffer object so afterwards we can safely unbind
     glBindBuffer(GL_ARRAY_BUFFER, 0);
+    // remember: do NOT unbind the EBO while a VAO is active as the bound element buffer object IS stored in the VAO; keep the EBO bound.
+    //glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
 
     //uncomment this call to draw in wireframe polygons
@@ -139,7 +156,8 @@ int chapter01_02() {
         /*-----------chapter 01 - 02 -----------------*/
         glUseProgram(shaderProgram);
         glBindVertexArray(VAO);
-        glDrawArrays(GL_TRIANGLES, 0, 3);
+//        glDrawArrays(GL_TRIANGLES, 0, 3);
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
         /*-----------chapter 01 - 02 -----------------*/
 
@@ -150,6 +168,7 @@ int chapter01_02() {
 
     glDeleteVertexArrays(1, &VAO);
     glDeleteBuffers(1, &VBO);
+    glDeleteBuffers(1, &EBO);
 
     //glfw:terminate, clear all previously allocated GLFW resources
     glfwTerminate();
