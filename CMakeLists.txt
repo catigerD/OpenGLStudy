@@ -4,10 +4,11 @@ project(OpenGLStudy)
 set(CMAKE_CXX_STANDARD 14)
 
 include_directories(include)
+include_directories(.)
 link_directories(lib)
 aux_source_directory(. MAIN_SRC)
 
-add_executable(OpenGLStudy ${MAIN_SRC})
+add_executable(OpenGLStudy ${MAIN_SRC} chapter01-01.h)
 
 target_link_libraries(
         OpenGLStudy
