@@ -8,6 +8,8 @@
 
 using namespace std;
 
+float mixValue = 0.2f;
+
 int chapter01_04() {
 
     //1. init glfw and configure
@@ -26,7 +28,6 @@ int chapter01_04() {
         cout << "failed to init glad" << endl;
         return -1;
     }
-
     //build and compile our shader program
     Shader ourShader("/Users/dengchong/project/CLionProjects/OpenGLStudy/shader/3.3.shader-0104.vs.glsl",
                      "/Users/dengchong/project/CLionProjects/OpenGLStudy/shader/3.3.shader-0104.fs.glsl");
@@ -159,6 +160,9 @@ int chapter01_04() {
 
         //render the triangle
         ourShader.use();
+        //exercise4：uniform变量作为mix函数的第三个参数来改变两个纹理可见度
+        ourShader.setFloat("mixValue", mixValue);
+
         glBindVertexArray(VAO);
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 

@@ -20,6 +20,8 @@ int chapter01_04();
 
 const int SCR_WIDTH = 800;
 const int SCR_HEIGHT = 600;
+//c++ static 详解 https://www.cnblogs.com/yc_sunniwell/archive/2010/07/14/1777441.html
+extern float mixValue;
 
 void initGLFW();
 
