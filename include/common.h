@@ -9,9 +9,14 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include <string>
+
 int chapter01_02();
+
 //着色器
 int chapter01_03();
+
+//纹理
+int chapter01_04();
 
 const int SCR_WIDTH = 800;
 const int SCR_HEIGHT = 600;
