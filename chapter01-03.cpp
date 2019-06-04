@@ -64,6 +64,10 @@ int chapter01_03() {
 
         //render the triangle
         ourShader.use();
+        //exercise2:使用uniform定义一个水平偏移量，在顶点着色器中使用这个偏移量把三角形移动到屏幕右侧
+        //更新一个uniform之前你必须先使用程序（调用glUseProgram)，因为它是在当前激活的着色器程序中设置uniform的。
+        float offset = 0.5f;
+        ourShader.setFloat("xOffset", offset);
         glBindVertexArray(VAO);
         glDrawArrays(GL_TRIANGLES, 0, 3);
 
