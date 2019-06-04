@@ -2,7 +2,8 @@
 // Created by dengchong on 2019-06-03.
 //
 
-#include <chapter01.h>
+#include <common.h>
+#include <Shader.h>
 
 using namespace std;
 
@@ -22,18 +23,58 @@ int chapter01_03() {
     //3. glad init fun pointer
     if (!gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress))) {
         cout << "failed to init glad" << endl;
+        return -1;
     }
 
+    //build and compile our shader program
+    Shader ourShader("/Users/dengchong/project/CLionProjects/OpenGLStudy/shader/3.3.shader-0103.vs.glsl",
+                     "/Users/dengchong/project/CLionProjects/OpenGLStudy/shader/3.3.shader-0103.fs.glsl");
+
+    //setup vertex data and configure vertex attributes
+    float vertices[] = {
+            //positions          colors
+            0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f,//bottom right
+            -0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f,//bottom left
+            0.0f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f,//top
+    };
+
+    unsigned int VAO, VBO;
+    glGenVertexArrays(1, &VAO);
+    glGenBuffers(1, &VBO);
+    //bind the vertex array object first,then bind and set vertex buffers,and then configure vertex attributes
+    glBindVertexArray(VAO);
+
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+    //position attribute
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void *) 0);
+    glEnableVertexAttribArray(0);
+    //color attribute
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void *) (3 * sizeof(float)));
+    glEnableVertexAttribArray(1);
     //4. render loop
     while (!glfwWindowShouldClose(window)) {
+        //input
         processInput(window);
 
+        //render
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
+        //render the triangle
+        ourShader.use();
+        glBindVertexArray(VAO);
+        glDrawArrays(GL_TRIANGLES, 0, 3);
+
+        //glfw swap buffert and poll IO events
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
+
+    //de-allocate all resources
+    glDeleteVertexArrays(1, &VAO);
+    glDeleteBuffers(1, &VBO);
 
     glfwTerminate();
     return 0;

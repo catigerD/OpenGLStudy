@@ -99,13 +99,13 @@ private:
             glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
             if (!success) {
                 glGetShaderInfoLog(shader, 1024, nullptr, infoLog);
-                cout << "error::shader_compilation_error of type : " << type << endl;
+                cout << "error::shader_compilation_error of type : " << type << "\n" << infoLog << endl;
             }
         } else {
             glGetProgramiv(shader, GL_LINK_STATUS, &success);
             if (!success) {
                 glGetProgramInfoLog(shader, 1024, nullptr, infoLog);
-                cout << "error::program_link_error of type : " << type << endl;
+                cout << "error::program_link_error of type : " << type << "\n" << infoLog << endl;
             }
         }
     }

@@ -1,7 +1,7 @@
 //
 // Created by dengchong on 2019-06-03.
 //
-#include <chapter01.h>
+#include <common.h>
 
 void initGLFW() {
     glfwInit();
