@@ -21,8 +21,11 @@ int chapter01_03();
 //纹理
 int chapter01_04();
 
-//纹理
+//变换
 int chapter01_05();
+
+//坐标
+int chapter01_06();
 
 const int SCR_WIDTH = 800;
 const int SCR_HEIGHT = 600;

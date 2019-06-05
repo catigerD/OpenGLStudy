@@ -4,5 +4,5 @@
 #include "common.h"
 
 int main() {
-    return chapter01_05();
+    return chapter01_06();
 }
