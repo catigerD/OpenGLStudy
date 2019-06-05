@@ -167,9 +167,53 @@ int chapter01_05() {
 
         //create transformations
         glm::mat4 transform = glm::mat4(1.0f);
-        transform = glm::translate(transform, glm::vec3(0.5f, 0.5f, 0.0f));
+//        transform = glm::translate(transform, glm::vec3(0.5f, 0.5f, 0.0f));
+//        transform = glm::rotate(transform, (float) glfwGetTime(), glm::vec3(0.0f, 0.0f, 1.0f));
+//        transform = glm::scale(transform, glm::vec3(0.5f, 0.5f, 0.5f));
+        //exercise010501:将其改变为先旋转，后位移。
         transform = glm::rotate(transform, (float) glfwGetTime(), glm::vec3(0.0f, 0.0f, 1.0f));
+        transform = glm::translate(transform, glm::vec3(0.5f, 0.5f, 0.0f));
         transform = glm::scale(transform, glm::vec3(0.5f, 0.5f, 0.5f));
+
+/* Why does our container now spin around our screen?:
+== ===================================================
+Remember that matrix multiplication is applied in reverse. This time a translation is thus
+applied first to the container positioning it in the bottom-right corner of the screen.
+After the translation the rotation is applied to the translated container.
+
+A rotation transformation is also known as a change-of-basis transformation
+for when we dig a bit deeper into linear algebra. Since we're changing the
+basis of the container, the next resulting translations will translate the container
+based on the new basis vectors. Once the vector is slightly rotated, the vertical
+translations would also be slightly translated for example.
+
+If we would first apply rotations then they'd resolve around the rotation origin (0,0,0), but
+since the container is first translated, its rotation origin is no longer (0,0,0) making it
+looks as if its circling around the origin of the scene.
+
+If you had trouble visualizing this or figuring it out, don't worry. If you
+experiment with transformations you'll soon get the grasp of it; all it takes
+is practice and experience.
+    为什么我们的容器现在围绕我们的屏幕旋转？：
+== ================================================ ===
+请记住，矩阵乘法反向应用。这次是翻译
+首先应用于容器，将其放置在屏幕的右下角。
+在转换之后，将旋转应用于已翻译的容器。
+
+旋转变换也称为基础变换
+因为当我们深入挖掘线性代数时。因为我们正在改变
+在容器的基础上，下一个产生的翻译将翻译容器
+基于新的基础向量。一旦矢量稍微旋转，垂直
+例如，翻译也会略有翻译。
+
+如果我们首先应用旋转，那么他们将围绕旋转原点（0,0,0）解决，但是
+因为容器首先被翻译，所以它的旋转原点不再是（0,0,0）
+看起来好像它绕着场景的起源盘旋。
+
+如果你无法想象或弄清楚它，请不要担心。如果你
+试验变形，你很快就会掌握它;所需要的一切
+是实践和经验。
+*/
         //render the triangle
         ourShader.use();
         //exercise4：uniform变量作为mix函数的第三个参数来改变两个纹理可见度
