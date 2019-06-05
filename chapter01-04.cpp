@@ -12,7 +12,7 @@ float mixValue = 0.2f;
 
 int chapter01_04() {
 
-    //1. init glfw and configure
+    //1. init glfw and configureR
     initGLFW();
     //2. glfw window creation
     GLFWwindow *window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "LearnOpenGL", nullptr, nullptr);

@@ -9,6 +9,9 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include <string>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 int chapter01_02();
 
@@ -17,6 +20,9 @@ int chapter01_03();
 
 //纹理
 int chapter01_04();
+
+//纹理
+int chapter01_05();
 
 const int SCR_WIDTH = 800;
 const int SCR_HEIGHT = 600;
